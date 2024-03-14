@@ -65,7 +65,7 @@ func connectToDB() *sql.DB {
 	dsn := os.Getenv("DSN")
 	fmt.Println("Config:  ", dsn)
 	if dsn == "" {
-		dsn = "host=localhost port=5433 user=postgres password=password dbname=users sslmode=disable timezone=UTC connect_timeout=5"
+		dsn = "host=localhost port=5434 user=postgres password=password dbname=users sslmode=disable timezone=UTC connect_timeout=5"
 	}
 
 	for {
