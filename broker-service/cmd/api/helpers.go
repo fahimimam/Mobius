@@ -17,19 +17,19 @@ func (app *Config) ReadJSON(w http.ResponseWriter, r *http.Request, data any) er
 	var err error
 	maxBytes := 1048576 // One megabyte
 
-	r.Body = http.MaxBytesReader(w, r.Body, int64(maxBytes))
+	reader := io.LimitReader(r.Body, int64(maxBytes))
 
-	dec := json.NewDecoder(r.Body)
+	dec := json.NewDecoder(reader)
 	err = dec.Decode(data)
 	if err != nil {
 		return err
 	}
 
-	err = dec.Decode(&struct{}{})
-	if err != io.EOF {
-		return errors.New("body must have only a single json value")
+	// Validate if the payload contains only a single json value
+	// Check for extra data using peek
+	if dec.More() {
+		return errors.New("request body must contain only a single JSON value")
 	}
-
 	return nil
 }
 
