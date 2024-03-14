@@ -3,4 +3,4 @@
 
 # Ignore PostgreSQL data directory
 # Replace "data" with the actual name of your PostgreSQL data directory if different
-db-data
+db-data/*
