@@ -61,7 +61,7 @@ help:
 	@echo "# 👉 make up_build    | Halt docker-compose (if active), craft all projects, and kickstart docker-compose! 🛠️   #"
 	@echo "# 👉 make down        | Pull the plug on docker compose when it's time to take a breather. 🛑                    #"
 	@echo "# 👉 make build_broker| Forge the broker binary into a formidable Linux executable! ⚙️                           #"
-	@echo "# 👉 make build_auth  | Craft the authentication microservice, securing your system! 🔐️                           #"
+	@echo "# 👉 make build_auth  | Craft the authentication microservice, securing your system! 🔐️                         #"
 	@echo "# 👉 make build_front | Assemble the front end binary with precision and finesse! 🎨                             #"
 	@echo "# 👉 make start       | Launch the front end and let the journey begin!      🚀                                  #"
 	@echo "# 👉 make stop        | Halt the front end gracefully, wrapping up today's adventures.  🛑                       #"

@@ -12,6 +12,9 @@ func main() {
 		render(w, "test.page.gohtml")
 	})
 
+	http.HandleFunc("/register", func(w http.ResponseWriter, r *http.Request) {
+		render(w, "register.page.gohtml")
+	})
 	fmt.Println("Starting front end service on port 3000")
 	err := http.ListenAndServe(":3000", nil)
 	if err != nil {
@@ -23,8 +26,8 @@ func render(w http.ResponseWriter, t string) {
 
 	partials := []string{
 		"./cmd/web/templates/base.layout.gohtml",
-		"./cmd/web//templates/header.partial.gohtml",
-		"./cmd/web//templates/footer.partial.gohtml",
+		"./cmd/web/templates/header.partial.gohtml",
+		"./cmd/web/templates/footer.partial.gohtml",
 	}
 
 	var templateSlice []string

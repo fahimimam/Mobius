@@ -45,6 +45,7 @@ func main() {
 	if err := srv.ListenAndServe(); err != nil {
 		log.Fatal("Error occurred ", err)
 	}
+	log.Println("Server started on port ", webPort)
 }
 
 func openDB(dsn string) (*sql.DB, error) {
@@ -63,11 +64,10 @@ func openDB(dsn string) (*sql.DB, error) {
 
 func connectToDB() *sql.DB {
 	dsn := os.Getenv("DSN")
-	fmt.Println("Config:  ", dsn)
 	if dsn == "" {
-		dsn = "host=localhost port=5434 user=postgres password=password dbname=users sslmode=disable timezone=UTC connect_timeout=5"
+		dsn = "host=localhost port=5433 user=postgres password=changeme dbname=mobiusdb sslmode=disable timezone=UTC connect_timeout=5"
 	}
-
+	fmt.Println("Config: ", dsn)
 	for {
 		connection, err := openDB(dsn)
 		if err != nil {

@@ -38,9 +38,40 @@ type User struct {
 	FirstName string    `json:"first_name,omitempty"`
 	LastName  string    `json:"last_name,omitempty"`
 	Password  string    `json:"-"`
-	Active    int       `json:"active"`
+	Active    bool      `json:"active"`
 	CreatedAt time.Time `json:"created_at"`
 	UpdatedAt time.Time `json:"updated_at"`
+}
+
+func (u *User) Create() error {
+	ctx, cancel := context.WithTimeout(context.Background(), dbTimeout)
+	defer cancel()
+
+	stmt := `INSERT INTO users (
+		email,
+		first_name,
+		last_name,
+		password,
+		user_active,
+	    created_at,
+		updated_at
+	) VALUES ($1, $2, $3, $4, $5, $6, $7)`
+
+	_, err := db.ExecContext(ctx, stmt,
+		u.Email,
+		u.FirstName,
+		u.LastName,
+		u.Password,
+		u.Active,
+		u.CreatedAt,
+		u.UpdatedAt,
+	)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 // GetAll returns a slice of all users, sorted by id
