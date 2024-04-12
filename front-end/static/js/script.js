@@ -14,17 +14,25 @@ form.addEventListener('submit', (e) => {
     // Validate form inputs
     const isValid = validateInputs();
 
+    console.log("email - ", email.value.trim())
+    console.log("firstname - ", firstname.value.trim())
+    console.log("lastname - ", lastname.value.trim())
+    console.log("password - ", password.value.trim())
+
     // If form inputs are valid, submit the form
     if (isValid) {
         // Construct the payload
         const payload = {
             action: "registration",
-            email: email.value.trim(),
-            first_name: firstname.value.trim(),
-            last_name: lastname.value.trim(),
-            password: password.value.trim()
+            registration: {
+                email: email.value.trim(),
+                firstname: firstname.value.trim(),
+                lastname: lastname.value.trim(),
+                password: password.value.trim()
+            },
         };
-
+        console.log("Prepared Pld - ", payload)
+        console.log("Stringified Data - ", JSON.stringify(payload))
         // Construct the fetch options
         const options = {
             method: "POST",
@@ -35,7 +43,7 @@ form.addEventListener('submit', (e) => {
         };
 
         // Send the form data to the broker microservice
-        fetch("http://localhost:8080/handle", options)
+        fetch("http://localhost:8081/handle", options)
             .then(response => response.json())
             .then(data => {
                 // Handle the response
@@ -45,7 +53,7 @@ form.addEventListener('submit', (e) => {
             })
             .catch(error => {
                 // Handle errors
-                console.error(error);
+                console.log(error);
             });
     }
 });

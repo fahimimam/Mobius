@@ -21,8 +21,8 @@ type authPld struct {
 
 type regPld struct {
 	Email     string `json:"email"`
-	FirstName string `json:"first_name"`
-	LastName  string `json:"last_name"`
+	FirstName string `json:"firstname"`
+	LastName  string `json:"lastname"`
 	Password  string `json:"password"`
 }
 

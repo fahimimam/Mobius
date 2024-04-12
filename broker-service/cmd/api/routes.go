@@ -9,6 +9,7 @@ import (
 
 func (app *Config) routes() http.Handler {
 	mux := chi.NewRouter()
+	mux.Use(middleware.Logger)
 
 	// Specify Who Is Allowed to connect
 	mux.Use(cors.Handler(cors.Options{

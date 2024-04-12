@@ -111,7 +111,7 @@ func (app *Config) Register(w http.ResponseWriter, pld RegistrationPld) {
 	jsonData, _ := json.MarshalIndent(pld, "", "\t")
 	log.Println("Making request To auth service: ")
 	// Call the auth service
-	request, err := http.NewRequest("POST", "http://authentication-service/register", bytes.NewBuffer(jsonData))
+	request, err := http.NewRequest("POST", "http://localhost:8080/register", bytes.NewBuffer(jsonData))
 	if err != nil {
 		app.ErrorJSON(w, err)
 		return
@@ -125,7 +125,7 @@ func (app *Config) Register(w http.ResponseWriter, pld RegistrationPld) {
 	defer response.Body.Close()
 
 	//Make sure we get back correct status code
-	log.Println("Got response ", response.Body)
+	log.Printf("Got response %+v", response.Body)
 	if response.StatusCode == http.StatusUnauthorized {
 		app.ErrorJSON(w, errors.New("invalid credentials"))
 		return
