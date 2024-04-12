@@ -9,7 +9,7 @@ body{
 
 #form{
     width:400px;
-    margin:10vh auto 10px auto;
+    margin:3vh auto 10px auto;
     background-color: whitesmoke;
     border-radius: 5px;
     padding:30px;
@@ -26,7 +26,7 @@ h1{
     border: 1px solid #792099;
     border-radius: 5px;
     padding:10px;
-    margin:20px 0px;
+    margin:10px 0px;
     cursor:pointer;
     font-size:20px;
     width:100%;
