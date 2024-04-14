@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	webPort = "8081"
+	webPort = "8080"
 )
 
 type Config struct{}
@@ -26,6 +26,6 @@ func main() {
 	// Start the Server
 	err := srv.ListenAndServe()
 	if err != nil {
-		log.Panic("Error occured ", err)
+		log.Panic("Error occurred ", err)
 	}
 }
