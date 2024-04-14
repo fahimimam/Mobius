@@ -32,7 +32,6 @@ form.addEventListener('submit', (e) => {
             },
         };
         console.log("Prepared Pld - ", payload)
-        console.log("Stringified Data - ", JSON.stringify(payload))
         // Construct the fetch options
         const options = {
             method: "POST",

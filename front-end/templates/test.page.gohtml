@@ -49,7 +49,7 @@
             const payload = {
                 action: "auth",
                 auth: {
-                    email: "fahimimam@gmail.com",
+                    email: "showasty@gmail.com",
                     password: "test12345"
                 }
             }
@@ -63,7 +63,7 @@
                 headers: headers,
             }
 
-            fetch("http:\/\/localhost:8080/handle", body)
+            fetch("http://localhost:8080/handle", body)
                 .then((response) => response.json())
                 .then((data) => {
                     sent.innerHTML = JSON.stringify(payload, undefined, 4);
@@ -86,7 +86,7 @@
                 method: "POST"
             }
 
-            fetch("http:\/\/localhost:8080", body)
+            fetch("http://localhost:8080/", body)
                 .then((response) => response.json())
                 .then((data) => {
                     sent.innerHTML = ("empty post request");
