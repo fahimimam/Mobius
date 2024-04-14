@@ -43,12 +43,11 @@ form.addEventListener('submit', (e) => {
         };
 
         // Send the form data to the broker microservice
-        fetch("http://localhost:8081/handle", options)
+        fetch("http://localhost:8080/handle", options)
             .then(response => response.json())
             .then(data => {
                 // Handle the response
-                // For example, update the UI based on the response data
-                window.location.assign = "http://localhost:3000/home";
+                window.location.href = "/home";
                 console.log(data);
             })
             .catch(error => {
