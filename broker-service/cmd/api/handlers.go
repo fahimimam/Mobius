@@ -58,7 +58,7 @@ func (app *Config) Authenticate(w http.ResponseWriter, pld AuthPld) {
 	jsonData, _ := json.MarshalIndent(pld, "", "\t")
 	log.Println("Making request To auth service: ")
 	// Call the auth service
-	request, err := http.NewRequest("POST", "http://authentication-service/authenticate", bytes.NewBuffer(jsonData))
+	request, err := http.NewRequest("POST", "http://authentication-service:8081/authenticate", bytes.NewBuffer(jsonData))
 	if err != nil {
 		app.ErrorJSON(w, err)
 		return
@@ -111,7 +111,7 @@ func (app *Config) Register(w http.ResponseWriter, pld RegistrationPld) {
 	jsonData, _ := json.MarshalIndent(pld, "", "\t")
 	log.Println("Making request To auth service: ")
 	// Call the auth service
-	request, err := http.NewRequest("POST", "http://localhost:8080/register", bytes.NewBuffer(jsonData))
+	request, err := http.NewRequest("POST", "http://authentication-service:8081/register", bytes.NewBuffer(jsonData))
 	if err != nil {
 		app.ErrorJSON(w, err)
 		return

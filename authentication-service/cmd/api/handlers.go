@@ -30,20 +30,23 @@ func (app *Config) Authenticate(w http.ResponseWriter, r *http.Request) {
 	var requestPayload authPld
 	log.Println("Got Hit from broker")
 	err := app.ReadJSON(w, r, &requestPayload)
-	log.Println("Received paylaod ", requestPayload)
+	log.Println("Received payload ", requestPayload)
 	if err != nil {
 		app.ErrorJSON(w, err, http.StatusBadRequest)
+		return
 	}
 	//	validate the user
 	user, err := app.Models.User.GetByEmail(requestPayload.Email)
 	if err != nil {
 		app.ErrorJSON(w, errors.New("invalid credentials"), http.StatusUnauthorized)
+		return
 	}
 	log.Println("found user :", user)
-	valid, err := app.Models.User.PasswordMatches(requestPayload.Password)
+	valid, err := user.PasswordMatches(requestPayload.Password)
 	if err != nil || !valid {
 		log.Println("Password did not match")
 		app.ErrorJSON(w, errors.New("invalid credentials"), http.StatusUnauthorized)
+		return
 	}
 
 	payload := JsonResponse{
