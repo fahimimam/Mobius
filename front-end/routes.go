@@ -5,7 +5,6 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"html/template"
-	"log"
 	"net/http"
 	"os"
 )
@@ -31,6 +30,7 @@ func GetRouter() *chi.Mux {
 	// handle other routes
 	router.Get("/home", landingPage)
 	router.Get("/register", register)
+	router.Get("/login", login)
 
 	return router
 }
@@ -40,27 +40,10 @@ func landingPage(w http.ResponseWriter, r *http.Request) {
 }
 
 func register(w http.ResponseWriter, r *http.Request) {
-	partials := []string{
-		"./templates/base.layout.gohtml",
-		"./templates/footer.partial.gohtml",
-	}
-	var templateSlice []string
-	templateSlice = append(templateSlice, fmt.Sprintf("./templates/%s", "register.page.gohtml"))
-
-	for _, x := range partials {
-		templateSlice = append(templateSlice, x)
-	}
-
-	tmpl, err := template.ParseFiles(templateSlice...)
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
-
-	if err := tmpl.Execute(w, nil); err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-	}
-	log.Println("Executed Templates")
+	render(w, "register.page.gohtml")
+}
+func login(w http.ResponseWriter, r *http.Request) {
+	render(w, "login.page.gohtml")
 }
 
 func render(w http.ResponseWriter, t string) {

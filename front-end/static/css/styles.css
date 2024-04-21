@@ -7,9 +7,17 @@ body{
 }
 
 
-#form{
+#registerForm  {
     width:400px;
     margin:3vh auto 10px auto;
+    background-color: whitesmoke;
+    border-radius: 5px;
+    padding:30px;
+}
+
+#loginForm {
+    width:400px;
+    margin:15vh auto 10px auto;
     background-color: whitesmoke;
     border-radius: 5px;
     padding:30px;
@@ -20,7 +28,19 @@ h1{
     color:#792099;
 }
 
-#form button{
+#registerForm button{
+    background-color: #792099;
+    color:white;
+    border: 1px solid #792099;
+    border-radius: 5px;
+    padding:10px;
+    margin:10px 0px;
+    cursor:pointer;
+    font-size:20px;
+    width:100%;
+}
+
+#loginForm button{
     background-color: #792099;
     color:white;
     border: 1px solid #792099;
@@ -63,17 +83,6 @@ h1{
 .input-group.error input{
     border-color:rgb(206, 67, 67);
 }
-
-/*.footer {*/
-/*    position: fixed;*/
-/*    left: 0;*/
-/*    bottom: 0;*/
-/*    width: 100%;*/
-/*    background: rgb(100,100,255);*/
-/*    !*background-color: red;*!*/
-/*    color: darkblue;*/
-/*    text-align: center;*/
-/*}*/
 
 .footer {
     position: fixed;

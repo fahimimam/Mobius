@@ -14,17 +14,23 @@ const (
 	ErrRecordNotFound = "sql: no rows in result set"
 )
 
-type authPld struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
-}
+type (
+	authPld struct {
+		Email    string `json:"email"`
+		Password string `json:"password"`
+	}
+	regPld struct {
+		Email     string `json:"email"`
+		FirstName string `json:"firstname"`
+		LastName  string `json:"lastname"`
+		Password  string `json:"password"`
+	}
 
-type regPld struct {
-	Email     string `json:"email"`
-	FirstName string `json:"firstname"`
-	LastName  string `json:"lastname"`
-	Password  string `json:"password"`
-}
+	loginPld struct {
+		Email    string `json:"email"`
+		Password string `json:"password"`
+	}
+)
 
 func (app *Config) Authenticate(w http.ResponseWriter, r *http.Request) {
 	var requestPayload authPld
@@ -104,6 +110,40 @@ func (app *Config) Register(w http.ResponseWriter, r *http.Request) {
 		Error:   false,
 		Message: fmt.Sprintf("Created user %s", u.Email),
 		Data:    u,
+	}
+
+	app.WriteJSON(w, http.StatusAccepted, payload)
+}
+
+func (app *Config) Login(w http.ResponseWriter, r *http.Request) {
+	var body loginPld
+	log.Println("Got Hit from broker")
+	err := app.ReadJSON(w, r, &body)
+	log.Println("Received payload ", body)
+	if err != nil {
+		app.ErrorJSON(w, err, http.StatusBadRequest)
+		return
+	}
+	//	validate the user
+	user, err := app.Models.User.GetByEmail(body.Email)
+
+	if err != nil && err.Error() != ErrRecordNotFound {
+		app.ErrorJSON(w, errors.New("invalid credentials"), http.StatusUnauthorized)
+		return
+	}
+
+	log.Println("found user :", user)
+	valid, err := user.PasswordMatches(body.Password)
+	if err != nil || !valid {
+		log.Println("Password did not match")
+		app.ErrorJSON(w, errors.New("invalid credentials"), http.StatusUnauthorized)
+		return
+	}
+	log.Println("Successfully retrieved User and Logged into system.")
+	payload := JsonResponse{
+		Error:   false,
+		Message: fmt.Sprintf("Logged in user %s", user.Email),
+		Data:    user,
 	}
 
 	app.WriteJSON(w, http.StatusAccepted, payload)
